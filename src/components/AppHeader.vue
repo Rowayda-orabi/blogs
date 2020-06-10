@@ -26,11 +26,7 @@ export default {
         right: 0;
         bottom: 0;
         opacity: 0.9;
-        //background: #330033;
-        //background: -moz-linear-gradient(-45deg,#330033 0% , #333366 100%);
-        //background: -webkit-linear-gradient(-45deg,#330033 0% , #333366 100%);
         background: linear-gradient(-45deg, #330033 0%, #333366 100%);
-        //filter: progid:DXImageTrabsform.Microsoft.gradient(startColorsrt='#330033',endColorsrt='#333366',Gradient);
     }
     h1 {
         color: #fff;

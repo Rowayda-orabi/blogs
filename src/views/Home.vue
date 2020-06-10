@@ -12,7 +12,10 @@
                 >
                 </b-card>
             </b-card-group>
-            <b-button @click="more()">more</b-button>
+            <div class="text-center">
+                <b-button @click="more()" size="lg" v-if="blogLength<3">more</b-button>
+                <!-- to hide button when all cards show -->
+            </div>
         </div>
     </div>
 </template>
@@ -25,7 +28,8 @@ export default {
         return {
             blogs: null,
             pageNumber: 1,
-            totalCount: null
+            blogLength:null,
+            //size :null
         };
     },
     name: "Home",
@@ -34,8 +38,8 @@ export default {
         blogCard
     },
     mounted() {
-        //for firebase
         this.$store.dispatch("getBlogs");
+        //this.size =this.$store.state.size ;
     },
     computed: {
         blogsCard() {
@@ -44,7 +48,8 @@ export default {
     },
     methods: {
         more() {
-            return this.$store.dispatch("Paginate");
+            return this.$store.dispatch("Paginate"),
+            this.blogLength =this.$store.state.blogsCard.length
         },
     }
 };

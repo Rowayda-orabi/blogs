@@ -27,6 +27,10 @@ export default {
             return this.$store.state.specific;
         }
     },
+    mounted() {
+        let pageIndex = this.$route.params.id;
+        this.$store.dispatch("specificBlog", pageIndex);
+    },
     components: {
         AppHeader
     }
@@ -41,5 +45,8 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+}
+img{
+    height: 400px !important;
 }
 </style>

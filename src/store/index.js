@@ -10,7 +10,8 @@ export default new Vuex.Store({
         lastVisible: null,
         next: null,
         indx: null,
-        specific: []
+        specific: [], // to handel singleblog component
+        //size: null //to handel more button
     },
     mutations: {
         updateIndex(state, indx) {
@@ -38,25 +39,31 @@ export default new Vuex.Store({
     },
     actions: {
         getBlogs({ commit }) {
+            /*firebase
+                .firestore()
+                .collection("blogs")
+                .get()
+                .then(qs => {
+                    this.state.size = qs.docs.length;
+                });*/
             let first = firebase
                 .firestore()
                 .collection("blogs")
                 .orderBy("id")
-                .limit(2);
+                .limit(3);
             commit("updateFirst", first);
             return first.get().then(function(documentSnapshots) {
                 // Get the last visible document
                 let lastVisible =
-                    documentSnapshots.docs[documentSnapshots.docs.length - 2];
+                    documentSnapshots.docs[documentSnapshots.docs.length - 3];
                 commit("updateLast", lastVisible);
-
                 let blogsCard = documentSnapshots.docs.map(queryDoc => {
                     return queryDoc.data();
                 });
                 commit("updateBlog", blogsCard);
 
-                // get the next 2 blog.
-                let indx = documentSnapshots.docs.length + 2;
+                // get the next 3 blog.
+                let indx = documentSnapshots.docs.length + 3;
                 commit("updateIndex", indx);
             });
         },
@@ -71,7 +78,7 @@ export default new Vuex.Store({
 
             return next.get().then(documentSnapshots => {
                 let lastVisible =
-                    documentSnapshots.docs[documentSnapshots.docs.length - 2];
+                    documentSnapshots.docs[documentSnapshots.docs.length - 3];
                 commit("updateLast", lastVisible);
                 let blogsCards = documentSnapshots.docs.map(queryDoc => {
                     return Object.assign({}, queryDoc.data(), {
@@ -79,12 +86,11 @@ export default new Vuex.Store({
                     });
                 });
                 commit("updateBlog", blogsCards);
-                let indx = documentSnapshots.docs.length + 2;
+                let indx = documentSnapshots.docs.length + 3;
                 commit("updateIndex", indx);
             });
         },
         specificBlog({ commit }, blogId) {
-            console.log(blogId);
             firebase
                 .firestore()
                 .collection("blogs")

@@ -5,7 +5,7 @@
             <b-card-text>
                 {{ data.paragraph | shorten }}
             </b-card-text>
-            <b-link :to="`blog/${data.id}`" @click="changeCurrentId(data.id)"
+            <b-link :to="`blog/${data.id}`" 
                 >Read More</b-link
             >
         </b-card>
@@ -16,16 +16,6 @@ export default {
     props: {
         data: {
             id: null
-        }
-    },
-    methods: {
-        changeCurrentId(id) {
-            this.id = id;
-            this.specificBlog(id)
-        },
-       specificBlog(id) {
-            this.$store.dispatch("specificBlog", id);
-            
         }
     },
     filters: {
